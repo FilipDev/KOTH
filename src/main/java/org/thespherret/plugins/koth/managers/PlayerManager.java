@@ -73,6 +73,5 @@ public class PlayerManager {
 			e.printStackTrace();
 		}
 		main.getAM().teleportNoChecks(location, p);
-		main.getAM().playersInArenas.remove(p.getName());
 	}
 }
