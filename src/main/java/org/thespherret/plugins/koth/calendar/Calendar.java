@@ -23,7 +23,7 @@ public class Calendar {
 	{
 		if (event.getUpdateType() == UpdateType.MINUTE)
 		{
-			Date currentDate = new Date(Day.valueOf(java.util.Calendar.DAY_OF_WEEK), new Time(java.util.Calendar.HOUR_OF_DAY, java.util.Calendar.MINUTE));
+			Date currentDate = new Date(Day.valueOf(java.util.Calendar.DAY_OF_WEEK), Time.currentTime());
 			if (currentDate.equals(main.getDM().getNextDate()))
 			{
 				Arena arena = main.getAM().getArena(main.getDM().getNextArena());

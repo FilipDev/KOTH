@@ -8,7 +8,7 @@ public enum Message {
 	INITIALIZING,
 	DEATH,
 	STARTING,
-	;
+	LEFT_QUEUE, RETURN_TO_QUEUE, GAME_STARTING_IN, JOINED_QUEUE;
 
 	private String message;
 

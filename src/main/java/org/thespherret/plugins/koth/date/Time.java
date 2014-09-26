@@ -1,5 +1,7 @@
 package org.thespherret.plugins.koth.date;
 
+import java.util.Calendar;
+
 public class Time {
 
 	private int hour, minute;
@@ -38,5 +40,21 @@ public class Time {
 	public int getMinute()
 	{
 		return minute;
+	}
+
+	@Override
+	public String toString()
+	{
+		return this.getHour() + "h" + ":" + this.getMinute() + "m";
+	}
+
+	public Time compare(Time time)
+	{
+		return new Time(Math.abs(Math.abs(time.getHour()) - Math.abs(getHour())), Math.abs(Math.abs(time.getMinute()) - Math.abs(getMinute())));
+	}
+
+	public static Time currentTime()
+	{
+		return new Time(Calendar.HOUR_OF_DAY, Calendar.MINUTE);
 	}
 }
