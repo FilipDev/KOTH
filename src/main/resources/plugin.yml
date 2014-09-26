@@ -1,0 +1,5 @@
+name: uKOTH
+version: 0.1
+main: org.thespherret.plugins.koth.Main
+commands:
+permissions:

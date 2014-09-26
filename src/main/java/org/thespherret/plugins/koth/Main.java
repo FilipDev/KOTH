@@ -6,6 +6,7 @@ import org.bukkit.command.CommandSender;
 import org.bukkit.configuration.file.YamlConfiguration;
 import org.bukkit.plugin.java.JavaPlugin;
 import org.thespherret.plugins.koth.calendar.Calendar;
+import org.thespherret.plugins.koth.date.DateManager;
 import org.thespherret.plugins.koth.managers.ArenaManager;
 import org.thespherret.plugins.koth.managers.CommandManager;
 import org.thespherret.plugins.koth.managers.PlayerManager;
@@ -26,6 +27,7 @@ public class Main extends JavaPlugin {
 	CommandManager cm;
 	ArenaManager am;
 	PlayerManager pm;
+	DateManager dm;
 
 	Calendar calendar;
 
@@ -48,6 +50,7 @@ public class Main extends JavaPlugin {
 		this.cm = new CommandManager(this);
 		this.am = new ArenaManager(this);
 		this.pm = new PlayerManager(this);
+		this.dm = new DateManager(this);
 
 		this.calendar = new Calendar(this);
 
@@ -143,5 +146,9 @@ public class Main extends JavaPlugin {
 		return this.pm;
 	}
 
+	public DateManager getDM()
+	{
+		return this.dm;
+	}
 
 }
