@@ -1,4 +1,4 @@
-package org.thespherret.plugins.koth;
+package org.thespherret.plugins.koth.queue;
 
 import org.bukkit.Bukkit;
 import org.bukkit.entity.Player;
@@ -6,16 +6,17 @@ import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 import org.bukkit.event.player.PlayerJoinEvent;
 import org.bukkit.event.player.PlayerQuitEvent;
+import org.thespherret.plugins.koth.Main;
 import org.thespherret.plugins.koth.date.Time;
 import org.thespherret.plugins.koth.messages.Message;
 
 import java.util.HashSet;
 
-public class Events implements Listener {
+public class LeaveQueueListener implements Listener {
 
 	Main main;
 
-	public Events(Main main)
+	public LeaveQueueListener(Main main)
 	{
 		this.main = main;
 	}

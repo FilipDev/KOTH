@@ -5,8 +5,10 @@ import org.bukkit.event.EventHandler;
 import org.bukkit.event.player.PlayerMoveEvent;
 import org.thespherret.plugins.koth.Arena;
 import org.thespherret.plugins.koth.Main;
+import org.thespherret.plugins.koth.messages.Message;
 import org.thespherret.plugins.koth.updater.UpdateEvent;
 import org.thespherret.plugins.koth.updater.UpdateType;
+import org.thespherret.plugins.koth.utils.Chat;
 
 import java.util.HashMap;
 
@@ -46,8 +48,9 @@ public class LocationChecker {
 				}
 			}
 
-			if (empty)
+			if (empty && this.firstPlayerInCuboid != null)
 			{
+				Chat.sendMessage(this.firstPlayerInCuboid, Message.LEFT_HILL);
 				this.firstPlayerInCuboid = null;
 			}
 		}
@@ -56,10 +59,12 @@ public class LocationChecker {
 	@EventHandler
 	public void onPlayerMove(PlayerMoveEvent e)
 	{
-		if (firstPlayerInCuboid == null)
+		if (this.firstPlayerInCuboid == null)
 		{
 			if (arena.getCuboid().contains(e.getTo()))
-				firstPlayerInCuboid = e.getPlayer();
+				this.firstPlayerInCuboid = e.getPlayer();
+
+			Chat.sendMessage(this.firstPlayerInCuboid, Message.FIRST_PLAYER_IN_HILL);
 		}
 	}
 }

@@ -1,6 +1,7 @@
-package org.thespherret.plugins.koth.date;
+package org.thespherret.plugins.koth.managers;
 
 import org.thespherret.plugins.koth.Main;
+import org.thespherret.plugins.koth.date.Date;
 
 import java.util.PriorityQueue;
 import java.util.Queue;

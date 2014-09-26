@@ -60,16 +60,20 @@ public class PlayerManager {
 	public void revertPlayer(Player p)
 	{
 		ConfigurationSection data;
-		try {
+		try
+		{
 			data = main.playerData.getConfigurationSection(p.getUniqueId().toString());
-		} catch (Exception e) {
+		}
+		catch (Exception e) {
 			e.printStackTrace();
 			return;
 		}
 		Location location = new Location(Bukkit.getWorld(data.getString("world", "world")), data.getDouble("x"), data.getDouble("y"), data.getDouble("z"), data.getInt("pitch"), data.getInt("yaw"));
-		try {
+		try
+		{
 			main.playerData.save(main.playerData1.getFile());
-		} catch (IOException e) {
+		}
+		catch (IOException e) {
 			e.printStackTrace();
 		}
 		main.getAM().teleportNoChecks(location, p);

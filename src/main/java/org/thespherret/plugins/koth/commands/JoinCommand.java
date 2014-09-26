@@ -1,7 +1,7 @@
 package org.thespherret.plugins.koth.commands;
 
-import org.thespherret.plugins.koth.Main;
 import org.thespherret.plugins.koth.messages.Message;
+import org.thespherret.plugins.koth.utils.Chat;
 
 public class JoinCommand extends Command {
 
@@ -9,6 +9,6 @@ public class JoinCommand extends Command {
 	public void execute()
 	{
 		cm.getMain().getAM().getCurrentArena().getPlayers().add(p);
-		Main.sendMessage(p, Message.JOINED_QUEUE);
+		Chat.sendMessage(p, Message.JOINED_QUEUE);
 	}
 }

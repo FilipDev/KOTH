@@ -50,11 +50,16 @@ public class Time {
 
 	public Time compare(Time time)
 	{
-		return new Time(Math.abs(Math.abs(time.getHour()) - Math.abs(getHour())), Math.abs(Math.abs(time.getMinute()) - Math.abs(getMinute())));
+		return Time.compare(this, time);
 	}
 
 	public static Time currentTime()
 	{
 		return new Time(Calendar.HOUR_OF_DAY, Calendar.MINUTE);
+	}
+
+	public static Time compare(Time time1, Time time2)
+	{
+		return new Time(Math.abs(Math.abs(time1.getHour()) - Math.abs(time2.getHour())), Math.abs(Math.abs(time1.getMinute()) - Math.abs(time2.getMinute())));
 	}
 }

@@ -2,22 +2,18 @@ package org.thespherret.plugins.koth;
 
 import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
-import org.bukkit.command.CommandSender;
 import org.bukkit.configuration.file.YamlConfiguration;
 import org.bukkit.plugin.java.JavaPlugin;
 import org.thespherret.plugins.koth.calendar.Calendar;
-import org.thespherret.plugins.koth.date.DateManager;
-import org.thespherret.plugins.koth.managers.ArenaManager;
-import org.thespherret.plugins.koth.managers.CommandManager;
-import org.thespherret.plugins.koth.managers.PlayerManager;
+import org.thespherret.plugins.koth.managers.*;
 import org.thespherret.plugins.koth.messages.Message;
+import org.thespherret.plugins.koth.utils.Chat;
 import org.thespherret.plugins.koth.utils.NewYAML;
 
 import java.io.BufferedReader;
 import java.io.File;
 import java.io.IOException;
 import java.io.InputStreamReader;
-import java.util.concurrent.TimeUnit;
 
 public class Main extends JavaPlugin {
 
@@ -28,6 +24,7 @@ public class Main extends JavaPlugin {
 	ArenaManager am;
 	PlayerManager pm;
 	DateManager dm;
+	QueueManager qm;
 
 	Calendar calendar;
 
@@ -37,8 +34,6 @@ public class Main extends JavaPlugin {
 	{
 		return ((Main) Bukkit.getPluginManager().getPlugin(Main.pluginName));
 	}
-
-	public final Events events = new Events(this);
 
 	public static String PREFIX;
 
@@ -51,13 +46,14 @@ public class Main extends JavaPlugin {
 		this.am = new ArenaManager(this);
 		this.pm = new PlayerManager(this);
 		this.dm = new DateManager(this);
+		this.qm = new QueueManager(this);
 
 		this.calendar = new Calendar(this);
 
 		generateMessages();
 		this.saveDefaultConfig();
 
-		sendMessage(Bukkit.getConsoleSender(), Message.INITIALIZING);
+		Chat.sendMessage(Bukkit.getConsoleSender(), Message.INITIALIZING);
 
 		for (String command : getDescription().getCommands().keySet())
 			getCommand(command).setExecutor(cm);
@@ -66,7 +62,6 @@ public class Main extends JavaPlugin {
 		this.kits = (this.kits1 = new NewYAML(new File(getDataFolder(), "kits.dat"))).newYaml();
 		this.playerData = (this.playerData1 = new NewYAML(new File(getDataFolder(), "players.dat"))).newYaml();
 		this.am.initArenas();
-		Bukkit.getPluginManager().registerEvents(events, this);
 	}
 
 	public void onDisable()
@@ -95,40 +90,6 @@ public class Main extends JavaPlugin {
 			}
 		}else
 			messages = (messages1 = new NewYAML(messagesFile)).newYaml1();
-	}
-
-	public static String getFormatted(String s, Object... strings)
-	{
-		String s1 = s;
-		for (Object s2 : strings)
-			s1 = s1.replaceFirst("%v", String.valueOf(s2));
-		return colorize(s1);
-	}
-
-	public static String calculateTime(long millis)
-	{
-		long hours = TimeUnit.MILLISECONDS.toHours(millis);
-		millis -= TimeUnit.HOURS.toMillis(hours);
-		long minutes = TimeUnit.MILLISECONDS.toMinutes(millis);
-		millis -= TimeUnit.MINUTES.toMillis(minutes);
-		long seconds = TimeUnit.MILLISECONDS.toSeconds(millis);
-
-		return (hours == 0 ? "" : hours + " hours ") + (minutes == 0 ? "" : minutes + " minutes ") + seconds + " seconds";
-	}
-
-	public static void sendMessage(CommandSender sender, Message message)
-	{
-		sender.sendMessage(message.toString());
-	}
-
-	public static void sendFormattedMessage(CommandSender sender, Message message, String... strings)
-	{
-		sender.sendMessage(message.getFormatted(strings));
-	}
-
-	public static String colorize(String s)
-	{
-		return ChatColor.translateAlternateColorCodes('&', s);
 	}
 
 	public ArenaManager getAM()
