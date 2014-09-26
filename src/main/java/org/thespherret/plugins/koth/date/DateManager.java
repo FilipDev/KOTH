@@ -1,25 +1,43 @@
 package org.thespherret.plugins.koth.date;
 
-import java.util.HashMap;
+import org.thespherret.plugins.koth.Main;
+
 import java.util.PriorityQueue;
 import java.util.Queue;
 
 public class DateManager {
 
-	private static Queue<Date> arenaCalendar = new PriorityQueue<>();
+	private Main main;
 
+	private Queue<Date> dateQueue = new PriorityQueue<>();
+	private Queue<String> arenaQueue = new PriorityQueue<>();
+
+	static
 	{
-		arenaCalendar.add(new D)
+		//TODO: ADD DEFAULT DATES
 	}
 
-	public static String getArena(Date date)
+	public DateManager(Main main)
 	{
-		return arenaCalendar.get(date);
+		this.main = main;
 	}
 
-	public static void addDate(Date date, String arena)
+	public void addDate(Date date, String arena)
 	{
-		arenaCalendar.put(date, arena);
+		dateQueue.add(date);
+		arenaQueue.add(arena);
 	}
+
+	public Date getNextDate()
+	{
+		return dateQueue.peek();
+	}
+
+	public String getNextArena()
+	{
+		dateQueue.remove();
+		return arenaQueue.remove();
+	}
+
 
 }

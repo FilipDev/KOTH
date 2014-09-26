@@ -10,16 +10,16 @@ public class Countdown extends BukkitRunnable {
 
 	private int secondsLeft;
 
-	BukkitRunnable runnable;
+	private Arena arena;
 
 	private int taskID;
 
 	public static List<Integer> tellTimes = Arrays.asList(15, 10, 5, 4, 3, 2, 1);
 
-	public Countdown(BukkitRunnable bukkitRunnable)
+	public Countdown(Arena arena)
 	{
-		this.runnable = bukkitRunnable;
-		this.taskID = Bukkit.getScheduler().scheduleSyncRepeatingTask(Main.getMain(), this, 0L, 600L);
+		this.arena = arena;
+		this.taskID = Bukkit.getScheduler().scheduleSyncRepeatingTask(Main.getMain(), this, 0L, 20L);
 	}
 
 	public synchronized int getSecondsLeft()

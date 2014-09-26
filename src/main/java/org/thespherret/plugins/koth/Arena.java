@@ -14,6 +14,7 @@ public class Arena implements Listener {
 
 	ArenaManager am;
 
+	private Cuboid cuboid;
 	private Main main;
 	private Countdown countdown;
 	private Location spawnPoint;
@@ -27,7 +28,7 @@ public class Arena implements Listener {
 		this.spawnPoint = am.getSpawnPoint(arenaName);
 		this.am = am;
 		this.main = am.getMain();
-
+		this.countdown = new Countdown(this);
 
 	}
 
@@ -50,7 +51,13 @@ public class Arena implements Listener {
 		return this.players;
 	}
 
+	public Cuboid getCuboid()
+	{
+		return cuboid;
+	}
+
 	public boolean hasStarted()
+
 	{
 		return started;
 	}
@@ -86,7 +93,6 @@ public class Arena implements Listener {
 			e.getDrops().clear();
 			e.setDeathMessage(Message.DEATH.getFormatted(player.getName()));
 			players.remove(player);
-			this.main.getPM().revertPlayer(player);
 		}
 	}
 

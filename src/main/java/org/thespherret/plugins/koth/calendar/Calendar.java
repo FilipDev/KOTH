@@ -1,15 +1,13 @@
 package org.thespherret.plugins.koth.calendar;
 
 import org.bukkit.event.EventHandler;
+import org.thespherret.plugins.koth.Arena;
 import org.thespherret.plugins.koth.Main;
 import org.thespherret.plugins.koth.date.Date;
-import org.thespherret.plugins.koth.date.DateManager;
 import org.thespherret.plugins.koth.date.Day;
 import org.thespherret.plugins.koth.date.Time;
 import org.thespherret.plugins.koth.updater.UpdateEvent;
 import org.thespherret.plugins.koth.updater.UpdateType;
-
-import java.util.HashMap;
 
 public class Calendar {
 
@@ -25,8 +23,15 @@ public class Calendar {
 	{
 		if (event.getUpdateType() == UpdateType.MINUTE)
 		{
-			Date currentDate = new Date(Day.valueOf(java.util.Calendar.DAY_OF_WEEK), new Time(DateManager.));
-			if ()
+			Date currentDate = new Date(Day.valueOf(java.util.Calendar.DAY_OF_WEEK), new Time(java.util.Calendar.HOUR_OF_DAY, java.util.Calendar.MINUTE));
+			if (currentDate.equals(main.getDM().getNextDate()))
+			{
+				Arena arena = main.getAM().getArena(main.getDM().getNextArena());
+
+				main.getAM().setCurrentArena(arena);
+
+				arena.startArena();
+			}
 		}
 	}
 
