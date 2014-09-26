@@ -5,7 +5,7 @@ import org.bukkit.Location;
 import org.bukkit.World;
 import org.bukkit.entity.Player;
 import org.bukkit.event.player.PlayerTeleportEvent;
-import org.thespherret.plugins.koth.Arena;
+import org.thespherret.plugins.koth.arena.Arena;
 import org.thespherret.plugins.koth.Main;
 
 import java.io.IOException;

@@ -1,10 +1,13 @@
-package org.thespherret.plugins.koth;
+package org.thespherret.plugins.koth.arena;
 
 import org.bukkit.Location;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 import org.bukkit.event.entity.PlayerDeathEvent;
+import org.thespherret.plugins.koth.cuboid.Cuboid;
+import org.thespherret.plugins.koth.Main;
+import org.thespherret.plugins.koth.countdown.Countdown;
 import org.thespherret.plugins.koth.managers.ArenaManager;
 import org.thespherret.plugins.koth.messages.Message;
 

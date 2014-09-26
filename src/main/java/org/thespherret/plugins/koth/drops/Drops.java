@@ -1,4 +1,4 @@
-package org.thespherret.plugins.koth;
+package org.thespherret.plugins.koth.drops;
 
 import org.bukkit.Bukkit;
 import org.bukkit.Material;
@@ -7,12 +7,13 @@ import org.bukkit.enchantments.Enchantment;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.ItemMeta;
 import org.bukkit.plugin.Plugin;
+import org.thespherret.plugins.koth.utils.Chat;
 
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
 
-public class Drop {
+public class Drops {
 
 	private static Random random = new Random();
 
@@ -34,12 +35,12 @@ public class Drop {
 				itemMeta.addEnchant(readyEnchantment.enchantment, readyEnchantment.level, false);
 
 			if (data.get("name") != null)
-				itemMeta.setDisplayName(Main.colorize(data.getString("name")));
+				itemMeta.setDisplayName(Chat.colorize(data.getString("name")));
 			if (data.get("lore") != null)
 			{
 				ArrayList<String> colouredLore = new ArrayList<>();
 				for (String loreString : data.getStringList("lore"))
-					colouredLore.add(Main.colorize(loreString));
+					colouredLore.add(Chat.colorize(loreString));
 				itemMeta.setLore(colouredLore);
 			}
 			itemStack.setItemMeta(itemMeta);

@@ -1,4 +1,4 @@
-package org.thespherret.plugins.koth;
+package org.thespherret.plugins.koth.cuboid;
 
 import org.apache.commons.lang.Validate;
 import org.bukkit.Bukkit;

@@ -3,7 +3,7 @@ package org.thespherret.plugins.koth.checker;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.player.PlayerMoveEvent;
-import org.thespherret.plugins.koth.Arena;
+import org.thespherret.plugins.koth.arena.Arena;
 import org.thespherret.plugins.koth.Main;
 import org.thespherret.plugins.koth.messages.Message;
 import org.thespherret.plugins.koth.updater.UpdateEvent;

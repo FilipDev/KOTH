@@ -1,7 +1,7 @@
 package org.thespherret.plugins.koth.calendar;
 
 import org.bukkit.event.EventHandler;
-import org.thespherret.plugins.koth.Arena;
+import org.thespherret.plugins.koth.arena.Arena;
 import org.thespherret.plugins.koth.Main;
 import org.thespherret.plugins.koth.date.Date;
 import org.thespherret.plugins.koth.date.Day;

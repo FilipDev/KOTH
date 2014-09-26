@@ -1,7 +1,9 @@
-package org.thespherret.plugins.koth;
+package org.thespherret.plugins.koth.countdown;
 
 import org.bukkit.Bukkit;
 import org.bukkit.scheduler.BukkitRunnable;
+import org.thespherret.plugins.koth.arena.Arena;
+import org.thespherret.plugins.koth.Main;
 
 import java.util.Arrays;
 import java.util.List;
