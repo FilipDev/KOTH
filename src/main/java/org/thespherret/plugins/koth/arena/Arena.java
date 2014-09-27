@@ -1,11 +1,14 @@
 package org.thespherret.plugins.koth.arena;
 
 import org.bukkit.Location;
+import org.bukkit.entity.EntityType;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
+import org.bukkit.event.entity.EntityDamageByEntityEvent;
 import org.bukkit.event.entity.PlayerDeathEvent;
 import org.thespherret.plugins.koth.Main;
+import org.thespherret.plugins.koth.checker.LocationChecker;
 import org.thespherret.plugins.koth.countdown.Countdown;
 import org.thespherret.plugins.koth.cuboid.Cuboid;
 import org.thespherret.plugins.koth.managers.ArenaManager;
@@ -25,6 +28,10 @@ public class Arena implements Listener {
 	private String name;
 	private boolean started;
 	private HashSet<Player> players = new HashSet<>();
+
+	private boolean invulnerable = false;
+
+	private LocationChecker checker;
 
 	public Arena(ArenaManager am, String arenaName)
 	{
@@ -83,7 +90,10 @@ public class Arena implements Listener {
 			return;
 
 		this.started = true;
+		this.invulnerable = true;
 		addPlayers();
+
+		this.checker = new LocationChecker(main);
 	}
 
 	@EventHandler
@@ -99,5 +109,14 @@ public class Arena implements Listener {
 		}
 	}
 
+	@EventHandler
+	public void onPlayerDamage(EntityDamageByEntityEvent e)
+	{
+		if (e.getEntity().getType() == EntityType.PLAYER)
+		{
+			if (this.getPlayers().contains(e.getEntity()))
+				e.setCancelled(true);
+		}
+	}
 
 }

@@ -11,12 +11,14 @@ import org.thespherret.plugins.koth.updater.UpdateType;
 import org.thespherret.plugins.koth.utils.Chat;
 
 import java.util.HashMap;
+import java.util.PriorityQueue;
+import java.util.Queue;
 
 public class LocationChecker {
 
 	private Main main;
 
-	private Player firstPlayerInCuboid;
+	private Queue<Player> enterQueue = new PriorityQueue<>();
 
 	private Arena arena;
 
@@ -34,37 +36,47 @@ public class LocationChecker {
 	{
 		if (e.getUpdateType() == UpdateType.SECOND)
 		{
-			boolean empty = true;
-			if (firstPlayerInCuboid != null)
+			boolean isInHill = false;
+			while (!isInHill)
 			{
-				for (Player player : arena.getPlayers())
+				if (enterQueue.size() > 0)
 				{
-					if (arena.getCuboid().contains(player.getLocation()))
+					if (!arena.getCuboid().contains(enterQueue.peek().getLocation()))
 					{
-						empty = false;
-						if (player == firstPlayerInCuboid)
-							inCubeTime.put(player.getName(), inCubeTime.get(player.getName()));
+						Chat.sendMessage(enterQueue.remove(), Message.LEFT_HILL);
+						resetPoints(enterQueue.peek());
 					}
+					else
+						isInHill = true;
 				}
+				else
+					isInHill = true;
 			}
 
-			if (empty && this.firstPlayerInCuboid != null)
-			{
-				Chat.sendMessage(this.firstPlayerInCuboid, Message.LEFT_HILL);
-				this.firstPlayerInCuboid = null;
-			}
+			addPoints(enterQueue.peek());
 		}
 	}
 
 	@EventHandler
 	public void onPlayerMove(PlayerMoveEvent e)
 	{
-		if (this.firstPlayerInCuboid == null)
+		if (!enterQueue.contains(e.getPlayer()))
 		{
 			if (arena.getCuboid().contains(e.getTo()))
-				this.firstPlayerInCuboid = e.getPlayer();
-
-			Chat.sendMessage(this.firstPlayerInCuboid, Message.FIRST_PLAYER_IN_HILL);
+			{
+				enterQueue.add(e.getPlayer());
+				resetPoints(e.getPlayer());
+			}
 		}
+	}
+
+	private void addPoints(Player player)
+	{
+		inCubeTime.put(player.getName(), inCubeTime.get(player.getName()) + 1);
+	}
+
+	private void resetPoints(Player player)
+	{
+		inCubeTime.put(player.getName(), 0);
 	}
 }

@@ -2,10 +2,12 @@ package org.thespherret.plugins.koth.countdown;
 
 import org.bukkit.Bukkit;
 import org.bukkit.scheduler.BukkitRunnable;
-import org.thespherret.plugins.koth.arena.Arena;
 import org.thespherret.plugins.koth.Main;
+import org.thespherret.plugins.koth.arena.Arena;
+import org.thespherret.plugins.koth.date.time.AccurateTime;
+import org.thespherret.plugins.koth.date.time.Time;
 
-import java.util.Arrays;
+import java.util.ArrayList;
 import java.util.List;
 
 public class Countdown extends BukkitRunnable {
@@ -16,7 +18,12 @@ public class Countdown extends BukkitRunnable {
 
 	private int taskID;
 
-	public static List<Integer> tellTimes = Arrays.asList(15, 10, 5, 4, 3, 2, 1);
+	public static List<Time> tellTimes = new ArrayList<>();
+
+	static
+	{
+		tellTimes.add(new AccurateTime(0, 15, 0));
+	}
 
 	public Countdown(Arena arena)
 	{

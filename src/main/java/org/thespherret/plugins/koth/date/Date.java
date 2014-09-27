@@ -1,14 +1,19 @@
 package org.thespherret.plugins.koth.date;
 
+import org.thespherret.plugins.koth.date.time.InaccurateTime;
+import org.thespherret.plugins.koth.date.time.Time;
+
+import java.util.Calendar;
+
 public class Date {
 
 	private Day day;
-	private Time time;
+	private InaccurateTime inaccurateTime;
 
-	public Date(Day day, Time time)
+	public Date(Day day, InaccurateTime inaccurateTime)
 	{
 		this.day = day;
-		this.time = time;
+		this.inaccurateTime = inaccurateTime;
 	}
 
 	public Day getDay()
@@ -16,9 +21,9 @@ public class Date {
 		return day;
 	}
 
-	public Time getTime()
+	public InaccurateTime getInaccurateTime()
 	{
-		return time;
+		return inaccurateTime;
 	}
 
 	@Override
@@ -29,7 +34,7 @@ public class Date {
 
 		Date date = (Date) o;
 
-		return day == date.day && time.equals(date.time);
+		return day == date.day && inaccurateTime.equals(date.inaccurateTime);
 
 	}
 
@@ -37,8 +42,13 @@ public class Date {
 	public int hashCode()
 	{
 		int result = day.hashCode();
-		result = 31 * result + time.hashCode();
+		result = 31 * result + inaccurateTime.hashCode();
 		return result;
+	}
+
+	public static Date currentDate()
+	{
+		return new Date(Day.valueOf(Calendar.DAY_OF_WEEK), Time.currentInnacurateTime());
 	}
 
 }

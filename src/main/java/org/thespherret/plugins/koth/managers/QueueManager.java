@@ -2,17 +2,17 @@ package org.thespherret.plugins.koth.managers;
 
 import org.bukkit.Bukkit;
 import org.thespherret.plugins.koth.Main;
-import org.thespherret.plugins.koth.queue.LeaveQueueListener;
+import org.thespherret.plugins.koth.queue.LeaveListener;
 
 public class QueueManager {
 
 	private Main main;
-	private LeaveQueueListener leaveListener;
+	private LeaveListener leaveListener;
 
 	public QueueManager(Main main)
 	{
 		this.main = main;
-		this.leaveListener = new LeaveQueueListener(main);
+		this.leaveListener = new LeaveListener(main);
 
 		Bukkit.getPluginManager().registerEvents(this.leaveListener, main);
 	}
@@ -22,7 +22,7 @@ public class QueueManager {
 		return main;
 	}
 
-	public LeaveQueueListener getLeaveListener()
+	public LeaveListener getLeaveListener()
 	{
 		return this.leaveListener;
 	}
