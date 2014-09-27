@@ -1,34 +1,34 @@
 package org.thespherret.plugins.koth.countdown;
 
-import org.bukkit.Bukkit;
-import org.bukkit.scheduler.BukkitRunnable;
-import org.thespherret.plugins.koth.Main;
+import org.bukkit.entity.Player;
+import org.bukkit.event.EventHandler;
 import org.thespherret.plugins.koth.arena.Arena;
 import org.thespherret.plugins.koth.date.time.AccurateTime;
 import org.thespherret.plugins.koth.date.time.Time;
+import org.thespherret.plugins.koth.messages.Message;
+import org.thespherret.plugins.koth.updater.UpdateEvent;
+import org.thespherret.plugins.koth.updater.UpdateType;
+import org.thespherret.plugins.koth.utils.Chat;
 
-import java.util.ArrayList;
-import java.util.List;
+import java.util.HashSet;
 
-public class Countdown extends BukkitRunnable {
+public class Countdown {
 
 	private int secondsLeft;
 
 	private Arena arena;
 
-	private int taskID;
-
-	public static List<Time> tellTimes = new ArrayList<>();
+	public static HashSet<Time> tellTimes = new HashSet<>();
 
 	static
 	{
+		tellTimes.add(new AccurateTime(0, 15, 0));
 		tellTimes.add(new AccurateTime(0, 15, 0));
 	}
 
 	public Countdown(Arena arena)
 	{
 		this.arena = arena;
-		this.taskID = Bukkit.getScheduler().scheduleSyncRepeatingTask(Main.getMain(), this, 0L, 20L);
 	}
 
 	public synchronized int getSecondsLeft()
@@ -41,14 +41,23 @@ public class Countdown extends BukkitRunnable {
 		this.secondsLeft = secondsLeft;
 	}
 
-	public int getTaskID()
+	@EventHandler
+	public void onUpdate(UpdateEvent e)
 	{
-		return this.taskID;
+		if (e.getUpdateType() == UpdateType.SECOND)
+		{
+			setSecondsLeft(getSecondsLeft() - 1);
+
+			Time time = AccurateTime.fromSeconds(getSecondsLeft());
+
+			if (tellTimes.contains(time))
+			{
+				for (Player player : arena.getPlayers())
+				{
+					Chat.sendFormattedMessage(player, Message.GAME_STARTING_IN, time.toString());
+				}
+			}
+		}
 	}
 
-	@Override
-	public void run()
-	{
-		setSecondsLeft(getSecondsLeft() - 1);
-	}
 }

@@ -67,7 +67,7 @@ public class ArenaManager {
 		return new Location(getWorld(arenaName), main.arenas.getDouble("arenas." + arenaName + ".x"), main.arenas.getDouble("arenas." + arenaName + ".y"), main.arenas.getDouble("arenas." + arenaName + ".z"), main.arenas.getInt("arenas." + arenaName + ".yaw"), main.arenas.getInt("arenas." + arenaName + ".pitch"));
 	}
 
-	public void createArenaPoint(String arenaName, Location location)
+	public void setArenaSpawn(String arenaName, Location location)
 	{
 		main.arenas.set("arenas." + arenaName + ".world", location.getWorld().getName());
 		main.arenas.set("arenas." + arenaName + ".x", location.getX());

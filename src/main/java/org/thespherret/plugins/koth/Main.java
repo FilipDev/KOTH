@@ -7,6 +7,7 @@ import org.bukkit.plugin.java.JavaPlugin;
 import org.thespherret.plugins.koth.calendar.Calendar;
 import org.thespherret.plugins.koth.managers.*;
 import org.thespherret.plugins.koth.messages.Message;
+import org.thespherret.plugins.koth.queue.LeaveListener;
 import org.thespherret.plugins.koth.utils.Chat;
 import org.thespherret.plugins.koth.utils.NewYAML;
 
@@ -25,6 +26,8 @@ public class Main extends JavaPlugin {
 	PlayerManager pm;
 	DateManager dm;
 	QueueManager qm;
+
+	LeaveListener leaveListener;
 
 	Calendar calendar;
 
@@ -49,6 +52,8 @@ public class Main extends JavaPlugin {
 		this.qm = new QueueManager(this);
 
 		this.calendar = new Calendar(this);
+
+		this.leaveListener = new LeaveListener(this);
 
 		generateMessages();
 		this.saveDefaultConfig();

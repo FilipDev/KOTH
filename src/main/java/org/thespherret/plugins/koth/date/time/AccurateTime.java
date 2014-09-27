@@ -1,6 +1,6 @@
 package org.thespherret.plugins.koth.date.time;
 
-import java.util.Calendar;
+import java.util.concurrent.TimeUnit;
 
 public class AccurateTime extends Time {
 
@@ -68,13 +68,14 @@ public class AccurateTime extends Time {
 		return (AccurateTime) Time.compareAccurate(this, time);
 	}
 
-	public static InaccurateTime currentTime()
+	public static AccurateTime fromSeconds(int sec)
 	{
-		return new InaccurateTime(Calendar.HOUR_OF_DAY, Calendar.MINUTE);
-	}
+		long hours = TimeUnit.SECONDS.toHours(sec);
+		sec -= TimeUnit.HOURS.toMillis(hours);
+		long minutes = TimeUnit.SECONDS.toMinutes(sec);
+		sec -= TimeUnit.MINUTES.toMillis(minutes);
+		long seconds = TimeUnit.SECONDS.toSeconds(sec);
 
-	public static InaccurateTime compare(InaccurateTime inaccurateTime1, InaccurateTime inaccurateTime2)
-	{
-		return new InaccurateTime(Math.abs(Math.abs(inaccurateTime1.getHour()) - Math.abs(inaccurateTime2.getHour())), Math.abs(Math.abs(inaccurateTime1.getMinute()) - Math.abs(inaccurateTime2.getMinute())));
+		return new AccurateTime((int) hours, (int) minutes, (int) seconds);
 	}
 }

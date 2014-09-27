@@ -1,5 +1,7 @@
 package org.thespherret.plugins.koth.date.time;
 
+import java.util.Calendar;
+
 public class InaccurateTime extends Time {
 
 	private int hour, minute;
@@ -56,5 +58,15 @@ public class InaccurateTime extends Time {
 	public InaccurateTime compare(InaccurateTime inaccurateTime)
 	{
 		return (InaccurateTime) InaccurateTime.compareInaccurate(this, inaccurateTime);
+	}
+
+	public static InaccurateTime currentTime()
+	{
+		return new InaccurateTime(Calendar.HOUR_OF_DAY, Calendar.MINUTE);
+	}
+
+	public static InaccurateTime compare(InaccurateTime inaccurateTime1, InaccurateTime inaccurateTime2)
+	{
+		return new InaccurateTime(Math.abs(Math.abs(inaccurateTime1.getHour()) - Math.abs(inaccurateTime2.getHour())), Math.abs(Math.abs(inaccurateTime1.getMinute()) - Math.abs(inaccurateTime2.getMinute())));
 	}
 }
