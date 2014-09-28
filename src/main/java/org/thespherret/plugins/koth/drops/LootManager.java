@@ -1,6 +1,9 @@
 package org.thespherret.plugins.koth.drops;
 
+import org.bukkit.Bukkit;
+import org.bukkit.inventory.Inventory;
 import org.thespherret.plugins.koth.Main;
+import org.thespherret.plugins.koth.messages.Message;
 import org.thespherret.plugins.koth.utils.RandomUtil;
 
 import java.util.ArrayList;
@@ -44,6 +47,9 @@ public class LootManager {
 		return loot;
 	}
 
-
+	public Inventory getInventory()
+	{
+		return Bukkit.createInventory(null, 18, Message.REWARD_INVENTORY_NAME.toString());
+	}
 
 }
