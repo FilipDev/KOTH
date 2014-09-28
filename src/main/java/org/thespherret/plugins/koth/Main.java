@@ -18,8 +18,8 @@ import java.io.InputStreamReader;
 
 public class Main extends JavaPlugin {
 
-	public NewYAML arenas1, playerData1, kits1, messages1;
-	public YamlConfiguration arenas, playerData, kits, messages;
+	public NewYAML arenas1, playerData1, kits1, messages1, loot1;
+	public YamlConfiguration arenas, playerData, kits, messages, loot;
 
 	CommandManager cm;
 	ArenaManager am;
@@ -66,6 +66,7 @@ public class Main extends JavaPlugin {
 		this.arenas = (this.arenas1 = new NewYAML(new File(getDataFolder(), "arenas.dat"))).newYaml();
 		this.kits = (this.kits1 = new NewYAML(new File(getDataFolder(), "kits.dat"))).newYaml();
 		this.playerData = (this.playerData1 = new NewYAML(new File(getDataFolder(), "players.dat"))).newYaml();
+		this.loot = (this.loot1 = new NewYAML(new File(getDataFolder(), "loot.dat"))).newYaml();
 		this.am.initArenas();
 	}
 
