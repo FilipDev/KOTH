@@ -5,8 +5,9 @@ import org.bukkit.command.CommandExecutor;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
 import org.thespherret.plugins.koth.Main;
-import org.thespherret.plugins.koth.commands.CreateCommand;
+import org.thespherret.plugins.koth.commands.*;
 
+import java.util.Arrays;
 import java.util.HashMap;
 
 public class CommandManager implements CommandExecutor {
@@ -18,7 +19,10 @@ public class CommandManager implements CommandExecutor {
 	{
 		this.main = main;
 		commandMap.put("create", new CreateCommand());
-		commandMap.put("create", new CreateCommand());
+		commandMap.put("join", new JoinCommand());
+		commandMap.put("leave", new LeaveCommand());
+		commandMap.put("whenisnext", new NextArenaCommand());
+		commandMap.put("queue", new QueueCommand());
 	}
 
 	@Override
@@ -26,7 +30,7 @@ public class CommandManager implements CommandExecutor {
 	{
 		if (commandSender instanceof Player)
 		{
-			commandMap.get(strings[0]).execute(this, (Player) commandSender, strings);
+			commandMap.get(strings[0]).execute(this, (Player) commandSender, Arrays.copyOfRange(strings, 1, strings.length - 1));
 			return true;
 		}
 		else

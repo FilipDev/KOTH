@@ -1,6 +1,7 @@
 package org.thespherret.plugins.koth.arena;
 
 import org.bukkit.Location;
+import org.bukkit.configuration.ConfigurationSection;
 import org.bukkit.entity.EntityType;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
@@ -8,7 +9,7 @@ import org.bukkit.event.Listener;
 import org.bukkit.event.entity.EntityDamageByEntityEvent;
 import org.bukkit.event.entity.PlayerDeathEvent;
 import org.thespherret.plugins.koth.Main;
-import org.thespherret.plugins.koth.checker.LocationChecker;
+import org.thespherret.plugins.koth.checker.PointManager;
 import org.thespherret.plugins.koth.countdown.Countdown;
 import org.thespherret.plugins.koth.cuboid.Cuboid;
 import org.thespherret.plugins.koth.managers.ArenaManager;
@@ -31,7 +32,14 @@ public class Arena implements Listener {
 
 	private boolean invulnerable = false;
 
-	private LocationChecker checker;
+	private PointManager checker;
+
+	public ConfigurationSection getConfigurationSection()
+	{
+		return configurationSection;
+	}
+
+	private ConfigurationSection configurationSection;
 
 	public Arena(ArenaManager am, String arenaName)
 	{
@@ -40,6 +48,8 @@ public class Arena implements Listener {
 		this.am = am;
 		this.main = am.getMain();
 		this.countdown = new Countdown(this);
+
+		this.configurationSection = main.arenas.getConfigurationSection("arenas." + arenaName);
 	}
 
 	public String getArenaName()
@@ -67,9 +77,13 @@ public class Arena implements Listener {
 	}
 
 	public boolean hasStarted()
-
 	{
 		return started;
+	}
+
+	public void setSpawn(Location newSpawn)
+	{
+		am.setArenaSpawn(this.getArenaName(), newSpawn);
 	}
 
 	public void endArena()
@@ -93,7 +107,7 @@ public class Arena implements Listener {
 		this.invulnerable = true;
 		addPlayers();
 
-		this.checker = new LocationChecker(main);
+		this.checker = new PointManager(main);
 	}
 
 	@EventHandler
@@ -107,16 +121,20 @@ public class Arena implements Listener {
 			e.setDeathMessage(Message.DEATH.getFormatted(player.getName()));
 			players.remove(player);
 		}
+
+		if (this.getPlayers().size() == 1)
+		{
+
+		}
 	}
 
 	@EventHandler
 	public void onPlayerDamage(EntityDamageByEntityEvent e)
 	{
-		if (e.getEntity().getType() == EntityType.PLAYER)
-		{
-			if (this.getPlayers().contains(e.getEntity()))
-				e.setCancelled(true);
-		}
+		if (invulnerable)
+			if (e.getEntity().getType() == EntityType.PLAYER)
+				if (this.getPlayers().contains(e.getEntity()))
+					e.setCancelled(true);
 	}
 
 }

@@ -14,7 +14,7 @@ import java.util.HashMap;
 import java.util.PriorityQueue;
 import java.util.Queue;
 
-public class LocationChecker {
+public class PointManager {
 
 	private Main main;
 
@@ -24,7 +24,7 @@ public class LocationChecker {
 
 	private HashMap<String, Integer> inCubeTime = new HashMap<>();
 
-	public LocationChecker(Main main)
+	public PointManager(Main main)
 	{
 		this.main = main;
 

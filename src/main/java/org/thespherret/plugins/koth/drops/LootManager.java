@@ -2,6 +2,7 @@ package org.thespherret.plugins.koth.drops;
 
 import org.bukkit.Bukkit;
 import org.bukkit.inventory.Inventory;
+import org.bukkit.inventory.ItemStack;
 import org.thespherret.plugins.koth.Main;
 import org.thespherret.plugins.koth.messages.Message;
 import org.thespherret.plugins.koth.utils.RandomUtil;
@@ -19,6 +20,8 @@ public class LootManager {
 	public LootManager(Main main)
 	{
 		this.main = main;
+		registerArenaAmounts();
+		registerRewards();
 	}
 
 	public Main getMain()
@@ -26,30 +29,77 @@ public class LootManager {
 		return this.main;
 	}
 
-	public void registerReward(Loot loot)
+	private void registerReward(Loot loot)
 	{
 		this.rewardPool.add(loot);
 	}
 
-	public void registerRewards()
+	private void registerArenaAmount(String key, int amount)
 	{
-		for (String key : main.loot.getConfigurationSection("loot").getKeys(false))
+		this.rewardAmounts.put(key, amount);
+	}
+
+	private void registerArenaAmounts()
+	{
+		for (String key : main.arenas.getConfigurationSection("arena").getKeys(false))
+			registerArenaAmount(key, main.arenas.getInt("arena." + key + ".reward-amount", 0));
+	}
+
+	private void registerRewards()
+	{
+		for (String key : main.loot.getConfigurationSection("items").getKeys(false))
 			registerReward(new Loot(key));
 	}
 
-	public List<Loot> getRewards(String arena)
+	public int getRewards(String arena)
 	{
-		ArrayList<Loot> loot = new ArrayList<>();
-
-		for (int x = 0; x <= rewardAmounts.get(arena); x++)
-			loot.add(rewardPool.get(RandomUtil.randomNumber(rewardPool.size() - 1)));
-
-		return loot;
+		return main.arenas.getInt("arena." + arena + ".reward-amount", 0);
 	}
 
 	public Inventory getInventory()
 	{
-		return Bukkit.createInventory(null, 18, Message.REWARD_INVENTORY_NAME.toString());
+		Inventory inventory = Bukkit.createInventory(null, 18, Message.REWARD_INVENTORY_NAME.toString());
+
+		ArrayList<ItemStack> itemStackList = new ArrayList<>();
+
+		for (Loot loot : rewardPool)
+		{
+			itemStackList.add(loot.getLoot());
+		}
+
+		inventory.setContents(itemStackList.toArray(new ItemStack[itemStackList.size()]));
+
+		return inventory;
+	}
+
+	public Inventory getEditableInventory()
+	{
+		Inventory inventory = Bukkit.createInventory(null, 18, Message.REWARD_EDIT_INVENTORY_NAME.toString());
+
+		ArrayList<ItemStack> itemStackList = new ArrayList<>();
+
+		for (Loot loot : rewardPool)
+		{
+			itemStackList.add(loot.getLoot());
+		}
+
+		inventory.setContents(itemStackList.toArray(new ItemStack[itemStackList.size()]));
+
+		return inventory;
+	}
+
+	public Inventory getClaimInventory(int amount)
+	{
+		Inventory inventory = Bukkit.createInventory(null, 18, Message.REWARD_CLAIM_INVENTORY_NAME.toString());
+
+		ArrayList<ItemStack> itemStackList = new ArrayList<>();
+
+		for (int x = 0; x <= amount; x++)
+			itemStackList.add(rewardPool.get(RandomUtil.randomNumber(rewardPool.size() - 1)).getLoot());
+
+		inventory.setContents(itemStackList.toArray(new ItemStack[itemStackList.size()]));
+
+		return inventory;
 	}
 
 }

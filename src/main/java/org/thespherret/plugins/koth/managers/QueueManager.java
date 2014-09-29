@@ -2,19 +2,19 @@ package org.thespherret.plugins.koth.managers;
 
 import org.bukkit.Bukkit;
 import org.thespherret.plugins.koth.Main;
-import org.thespherret.plugins.koth.queue.LeaveListener;
+import org.thespherret.plugins.koth.queue.RejoinReminder;
 
 public class QueueManager {
 
 	private Main main;
-	private LeaveListener leaveListener;
+	private RejoinReminder rejoinReminder;
 
 	public QueueManager(Main main)
 	{
 		this.main = main;
-		this.leaveListener = new LeaveListener(main);
+		this.rejoinReminder = new RejoinReminder(main);
 
-		Bukkit.getPluginManager().registerEvents(this.leaveListener, main);
+		Bukkit.getPluginManager().registerEvents(this.rejoinReminder, main);
 	}
 
 	public Main getMain()
@@ -22,8 +22,8 @@ public class QueueManager {
 		return main;
 	}
 
-	public LeaveListener getLeaveListener()
+	public RejoinReminder getRejoinReminder()
 	{
-		return this.leaveListener;
+		return this.rejoinReminder;
 	}
 }

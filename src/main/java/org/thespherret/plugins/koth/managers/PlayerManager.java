@@ -18,6 +18,17 @@ public class PlayerManager {
 		this.main = main;
 	}
 
+	public void addSlots(Player player, int slots)
+	{
+		if (main.playerData.isConfigurationSection("claimable-rewards." + player.getUniqueId().toString() + ".slots"))
+			main.playerData.set("claimable-rewards." + player.getUniqueId().toString() + ".slots", main.playerData.getInt("claimable-rewards." + player.getUniqueId().toString() + ".slots") + slots);
+	}
+
+	public int getSlots(Player player)
+	{
+		return main.playerData.getInt("claimable-rewards." + player.getUniqueId().toString() + ".slots");
+	}
+
 	public void loadInventory(Player p)
 	{
 		ItemStack[] invMain = new ItemStack[0], invArmor = new ItemStack[0];

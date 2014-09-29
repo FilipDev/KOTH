@@ -13,11 +13,11 @@ import org.thespherret.plugins.koth.utils.Chat;
 
 import java.util.HashSet;
 
-public class LeaveListener implements Listener {
+public class RejoinReminder implements Listener {
 
 	Main main;
 
-	public LeaveListener(Main main)
+	public RejoinReminder(Main main)
 	{
 		this.main = main;
 	}

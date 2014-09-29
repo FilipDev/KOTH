@@ -3,6 +3,7 @@ package org.thespherret.plugins.koth.managers;
 import org.bukkit.Bukkit;
 import org.bukkit.Location;
 import org.bukkit.World;
+import org.bukkit.configuration.ConfigurationSection;
 import org.bukkit.entity.Player;
 import org.bukkit.event.player.PlayerTeleportEvent;
 import org.thespherret.plugins.koth.arena.Arena;
@@ -83,6 +84,19 @@ public class ArenaManager {
 			e.printStackTrace();
 		}
 		initArenas();
+	}
+
+	public void setArenaCapturePoint(String arenaName, int arenaCapturePoint, Location location)
+	{
+		ConfigurationSection section = getArena(arenaName).getConfigurationSection();
+		section.set("capturepoint." + arenaCapturePoint + ".x", location.getBlockX());
+		section.set("capturepoint." + arenaCapturePoint + ".y", location.getBlockY());
+		section.set("capturepoint." + arenaCapturePoint + ".z", location.getBlockZ());
+	}
+
+	public void createArena(String arenaName)
+	{
+		main.arenas.set("arenas." + arenaName, "");
 	}
 
 	public Main getMain()

@@ -2,9 +2,9 @@ package org.thespherret.plugins.koth.messages;
 
 import org.bukkit.ChatColor;
 
-public class Error {
+public enum Error {
 
-
+	INVALID_ARGUMENT("You have used an invalid argument.");
 
 	private String error;
 

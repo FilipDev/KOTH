@@ -48,6 +48,91 @@ public class Cuboid implements Iterable<Block>, ConfigurationSerializable {
 		this.z2 = serializedCuboid.containsKey("Z2") ? (Integer) serializedCuboid.get("Z2") : 0;
 	}
 
+	public void setPoint1(Location location)
+	{
+		this.x1 = (int) location.getX();
+		this.y1 = (int) location.getY();
+		this.z1 = (int) location.getZ();
+	}
+
+	public void setPoint2(Location location)
+	{
+		this.x2 = (int) location.getX();
+		this.y2 = (int) location.getY();
+		this.z2 = (int) location.getZ();
+	}
+
+	public int getX1()
+	{
+		return x1;
+	}
+
+	public void setX1(int x1)
+	{
+		this.x1 = x1;
+	}
+
+	public int getY1()
+	{
+		return y1;
+	}
+
+	public void setY1(int y1)
+	{
+		this.y1 = y1;
+	}
+
+	public int getZ1()
+	{
+		return z1;
+	}
+
+	public void setZ1(int z1)
+	{
+		this.z1 = z1;
+	}
+
+	public int getX2()
+	{
+		return x2;
+	}
+
+	public void setX2(int x2)
+	{
+		this.x2 = x2;
+	}
+
+	public int getY2()
+	{
+		return y2;
+	}
+
+	public void setY2(int y2)
+	{
+		this.y2 = y2;
+	}
+
+	public int getZ2()
+	{
+		return z2;
+	}
+
+	public void setZ2(int z2)
+	{
+		this.z2 = z2;
+	}
+
+	public String getWorldName()
+	{
+
+		return worldName;
+	}
+
+	public void setWorldName(String worldName)
+	{
+		this.worldName = worldName;
+	}
+
 	public int getVolume() {
 		return ((this.x2 - this.x1) + 1) * ((this.y2 - this.y1) + 1) * ((this.z2 - this.z1) + 1);
 	}

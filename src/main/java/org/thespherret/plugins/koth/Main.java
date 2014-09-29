@@ -5,9 +5,10 @@ import org.bukkit.ChatColor;
 import org.bukkit.configuration.file.YamlConfiguration;
 import org.bukkit.plugin.java.JavaPlugin;
 import org.thespherret.plugins.koth.calendar.Calendar;
+import org.thespherret.plugins.koth.drops.LootManager;
 import org.thespherret.plugins.koth.managers.*;
 import org.thespherret.plugins.koth.messages.Message;
-import org.thespherret.plugins.koth.queue.LeaveListener;
+import org.thespherret.plugins.koth.queue.RejoinReminder;
 import org.thespherret.plugins.koth.utils.Chat;
 import org.thespherret.plugins.koth.utils.NewYAML;
 
@@ -26,8 +27,9 @@ public class Main extends JavaPlugin {
 	PlayerManager pm;
 	DateManager dm;
 	QueueManager qm;
+	LootManager lm;
 
-	LeaveListener leaveListener;
+	RejoinReminder rejoinReminder;
 
 	Calendar calendar;
 
@@ -50,10 +52,11 @@ public class Main extends JavaPlugin {
 		this.pm = new PlayerManager(this);
 		this.dm = new DateManager(this);
 		this.qm = new QueueManager(this);
+		this.lm = new LootManager(this);
 
 		this.calendar = new Calendar(this);
 
-		this.leaveListener = new LeaveListener(this);
+		this.rejoinReminder = new RejoinReminder(this);
 
 		generateMessages();
 		this.saveDefaultConfig();
@@ -116,6 +119,11 @@ public class Main extends JavaPlugin {
 	public DateManager getDM()
 	{
 		return this.dm;
+	}
+
+	public LootManager getLM()
+	{
+		return lm;
 	}
 
 }
