@@ -1,0 +1,14 @@
+INITIALIZING: &fInitialised KOTH.
+DEATH: You have died.
+STARTING: An arena is starting.
+LEFT_QUEUE: You have left the queue.
+RETURN_TO_QUEUE: You have left the KOTH queue by disconnecting. Please rejoin.
+GAME_STARTING_IN: The game is starting in %v
+JOINED_QUEUE: You have joined the queue for KOTH.
+NEXT_ARENA_IN: The next arena will start in %v
+LEFT_HILL: You have left the hill.
+REWARD_VIEW_POSSIBLE_INVENTORY_NAME: Possible rewards
+CHANGED_SPAWN_POINT: You have successfully changed the spawn point.
+REWARD_EDIT_INVENTORY_NAME: Editting rewards
+REWARD_CLAIM_INVENTORY_NAME: Claiming rewards
+GAME_STARTING_TOMORROW: The game is starting tomorrow.

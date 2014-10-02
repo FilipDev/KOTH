@@ -15,36 +15,40 @@ public class Loot {
 
 	private LootManager lootManager;
 
-	public Loot(LootManager lootManager)
-	{
-		this.lootManager = lootManager;
-	}
-
 	private ItemStack itemStack;
 
-	public Loot(String itemName)
+	public Loot(int n, LootManager lootManager)
 	{
-		ConfigurationSection data = lootManager.getMain().loot.getConfigurationSection("items." + itemName);
+		this.lootManager = lootManager;
 
-		ItemStack itemStack = new ItemStack(Material.matchMaterial(itemName));
-		itemStack.setAmount(data.getInt("amount", 1));
-		itemStack.setDurability((short) data.getInt("data", 0));
-		ItemMeta itemMeta = Bukkit.getItemFactory().getItemMeta(itemStack.getType());
-		for (ReadyEnchantment readyEnchantment : getEnchantment(data))
-			itemMeta.addEnchant(readyEnchantment.getEnchantment(), readyEnchantment.getLevel(), false);
+		ConfigurationSection data = lootManager.getMain().loot.getConfigurationSection("items." + n);
 
-		if (data.get("name") != null)
-			itemMeta.setDisplayName(Chat.colorize(data.getString("name")));
-		if (data.get("lore") != null)
+		if (data != null)
 		{
-			ArrayList<String> colouredLore = new ArrayList<>();
-			for (String loreString : data.getStringList("lore"))
-				colouredLore.add(Chat.colorize(loreString));
-			itemMeta.setLore(colouredLore);
-		}
-		itemStack.setItemMeta(itemMeta);
+			ItemStack itemStack = new ItemStack(Material.matchMaterial(data.getString("id")));
+			itemStack.setAmount(data.getInt("amount", 1));
+			itemStack.setDurability((short) data.getInt("data", 0));
+			ItemMeta itemMeta = Bukkit.getItemFactory().getItemMeta(itemStack.getType());
+			for (ReadyEnchantment readyEnchantment : getEnchantment(data))
+				itemMeta.addEnchant(readyEnchantment.getEnchantment(), readyEnchantment.getLevel(), false);
 
-		this.itemStack = itemStack;
+			if (data.get("name") != null)
+				itemMeta.setDisplayName(Chat.colorize(data.getString("name")));
+			if (data.get("lore") != null)
+			{
+				ArrayList<String> colouredLore = new ArrayList<>();
+				for (String loreString : data.getStringList("lore"))
+					colouredLore.add(Chat.colorize(loreString));
+				itemMeta.setLore(colouredLore);
+			}
+			itemStack.setItemMeta(itemMeta);
+
+			this.itemStack = itemStack;
+		}
+		else
+		{
+			this.itemStack = new ItemStack(Material.AIR);
+		}
 	}
 
 	public ItemStack getLoot()

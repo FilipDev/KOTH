@@ -4,7 +4,7 @@ import org.bukkit.ChatColor;
 
 public enum Error {
 
-	INVALID_ARGUMENT("You have used an invalid argument.");
+	INVALID_ARGUMENT("You have used an invalid argument."), NO_ARENAS("You have not created any arenas.");
 
 	private String error;
 

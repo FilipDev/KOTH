@@ -2,7 +2,6 @@ package org.thespherret.plugins.koth.utils;
 
 import org.bukkit.ChatColor;
 import org.bukkit.command.CommandSender;
-import org.thespherret.plugins.koth.Main;
 import org.thespherret.plugins.koth.messages.Error;
 import org.thespherret.plugins.koth.messages.Message;
 
@@ -31,7 +30,7 @@ public class Chat {
 
 	public static void sendMessage(CommandSender sender, Message message)
 	{
-		sender.sendMessage(Main.PREFIX + message.toString());
+		sender.sendMessage(message.toString());
 	}
 
 	public static void sendFormattedMessage(CommandSender sender, Message message, String... strings)

@@ -8,7 +8,7 @@ public class LeaveCommand extends Command {
 	@Override
 	public void execute()
 	{
-		cm.getMain().getAM().getCurrentArena().getPlayers().remove(p);
+		cm.getMain().getQM().getQueue().remove(p);
 		Chat.sendMessage(p, Message.LEFT_QUEUE);
 	}
 }

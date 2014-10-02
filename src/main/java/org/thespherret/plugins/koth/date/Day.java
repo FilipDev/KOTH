@@ -9,9 +9,22 @@ public enum Day {
 
 	private static Map<Integer, Day> dayMap = new HashMap<>();
 
+	int number;
+
 	Day(int i)
 	{
-		Day.addDay(i, this);
+		this.number = i;
+	}
+
+	public int getNumber()
+	{
+		return number;
+	}
+
+	static
+	{
+		for (Day day : Day.values())
+			addDay(day.getNumber(), day);
 	}
 
 	private static void addDay(int i, Day day)
@@ -21,7 +34,7 @@ public enum Day {
 
 	public static Day valueOf(int day)
 	{
-		return Day.dayMap.get(day);
+		return Day.dayMap.get(day - 1);
 	}
 
 }

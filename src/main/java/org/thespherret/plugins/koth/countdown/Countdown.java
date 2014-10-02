@@ -1,7 +1,9 @@
 package org.thespherret.plugins.koth.countdown;
 
+import org.bukkit.Bukkit;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
+import org.bukkit.event.Listener;
 import org.thespherret.plugins.koth.arena.Arena;
 import org.thespherret.plugins.koth.date.time.AccurateTime;
 import org.thespherret.plugins.koth.date.time.Time;
@@ -12,7 +14,7 @@ import org.thespherret.plugins.koth.utils.Chat;
 
 import java.util.HashSet;
 
-public class Countdown {
+public class Countdown implements Listener {
 
 	private int secondsLeft;
 
@@ -29,6 +31,8 @@ public class Countdown {
 	public Countdown(Arena arena)
 	{
 		this.arena = arena;
+
+		Bukkit.getPluginManager().registerEvents(this, arena.getAM().getMain());
 	}
 
 	public synchronized int getSecondsLeft()

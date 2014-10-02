@@ -27,7 +27,7 @@ public class RejoinReminder implements Listener {
 	@EventHandler
 	public void onPlayerLeave(final PlayerQuitEvent e)
 	{
-		HashSet<Player> players = main.getAM().getCurrentArena().getPlayers();
+		HashSet<Player> players = main.getQM().getQueue();
 		if (players.contains(e.getPlayer()))
 		{
 			players.remove(e.getPlayer());
@@ -48,6 +48,7 @@ public class RejoinReminder implements Listener {
 		if (leftQueue.contains(e.getPlayer().getName()))
 			Chat.sendMessage(e.getPlayer(), Message.RETURN_TO_QUEUE);
 
-		Chat.sendFormattedMessage(e.getPlayer(), Message.GAME_STARTING_IN, Time.currentInnacurateTime().toString());
+		Chat.sendFormattedMessage(e.getPlayer(), Message.GAME_STARTING_IN, Time.compareInaccurate(Time.currentInnacurateTime(), main.getDM().getNextArena().getInaccurateTime()).toString());
+
 	}
 }

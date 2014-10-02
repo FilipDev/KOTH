@@ -1,5 +1,6 @@
 package org.thespherret.plugins.koth.arena;
 
+import org.bukkit.Bukkit;
 import org.bukkit.Location;
 import org.bukkit.configuration.ConfigurationSection;
 import org.bukkit.entity.EntityType;
@@ -49,6 +50,8 @@ public class Arena implements Listener {
 		this.main = am.getMain();
 		this.countdown = new Countdown(this);
 
+		Bukkit.getPluginManager().registerEvents(this, am.getMain());
+
 		this.configurationSection = main.arenas.getConfigurationSection("arenas." + arenaName);
 	}
 
@@ -59,11 +62,12 @@ public class Arena implements Listener {
 
 	public void addPlayers()
 	{
-		for (Player player : players)
+		for (Player player : main.getQM().getQueue())
 		{
 			Chat.sendMessage(player, Message.STARTING);
 			player.teleport(spawnPoint);
 		}
+		main.getQM().getQueue().clear();
 	}
 
 	public HashSet<Player> getPlayers()
@@ -108,6 +112,11 @@ public class Arena implements Listener {
 		addPlayers();
 
 		this.checker = new PointManager(main);
+	}
+
+	public ArenaManager getAM()
+	{
+		return am;
 	}
 
 	@EventHandler

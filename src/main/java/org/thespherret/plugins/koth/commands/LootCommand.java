@@ -1,16 +1,24 @@
 package org.thespherret.plugins.koth.commands;
 
+import org.bukkit.Bukkit;
 import org.bukkit.Material;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
+import org.bukkit.event.Listener;
 import org.bukkit.event.inventory.InventoryClickEvent;
 import org.bukkit.event.inventory.InventoryCloseEvent;
 import org.bukkit.inventory.Inventory;
 import org.bukkit.inventory.ItemStack;
+import org.thespherret.plugins.koth.Main;
 import org.thespherret.plugins.koth.messages.Message;
 import org.thespherret.plugins.koth.utils.Permissions;
 
-public class LootCommand extends Command {
+public class LootCommand extends Command implements Listener {
+
+	public LootCommand()
+	{
+		Bukkit.getPluginManager().registerEvents(this, Main.getMain());
+	}
 
 	@Override
 	public void execute()
@@ -20,10 +28,12 @@ public class LootCommand extends Command {
 		if (args.length == 1)
 		{
 			if (Permissions.isAdmin(p))
+			{
 				if (args[0].equalsIgnoreCase("edit"))
 				{
 					edit();
 				}
+			}
 			if (args[0].equalsIgnoreCase("claim"))
 			{
 				claim();
@@ -50,12 +60,17 @@ public class LootCommand extends Command {
 				if (itemStack != null)
 					e.getPlayer().getWorld().dropItemNaturally(e.getPlayer().getLocation(), itemStack);
 		}
+
+		if (e.getInventory().getName().equals(Message.REWARD_EDIT_INVENTORY_NAME.toString()))
+		{
+			cm.getMain().getLM().storeEdits(e.getInventory());
+		}
 	}
 
 	@EventHandler
 	public void onInventoryClick(InventoryClickEvent e)
 	{
-		if (e.getInventory().getName().equals(Message.REWARD_INVENTORY_NAME.toString()))
+		if (e.getInventory().getName().equals(Message.REWARD_VIEW_POSSIBLE_INVENTORY_NAME.toString()))
 			e.setCancelled(true);
 
 		if (e.getInventory().getName().equals(Message.REWARD_CLAIM_INVENTORY_NAME.toString()))

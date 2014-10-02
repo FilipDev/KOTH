@@ -119,4 +119,9 @@ public class ArenaManager {
 		p.teleport(loc, PlayerTeleportEvent.TeleportCause.ENDER_PEARL);
 	}
 
+	public HashMap<String, Arena> getArenaMap()
+	{
+		return this.arenas;
+	}
+
 }

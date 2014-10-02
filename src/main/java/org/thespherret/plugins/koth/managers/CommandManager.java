@@ -7,7 +7,6 @@ import org.bukkit.entity.Player;
 import org.thespherret.plugins.koth.Main;
 import org.thespherret.plugins.koth.commands.*;
 
-import java.util.Arrays;
 import java.util.HashMap;
 
 public class CommandManager implements CommandExecutor {
@@ -23,6 +22,7 @@ public class CommandManager implements CommandExecutor {
 		commandMap.put("leave", new LeaveCommand());
 		commandMap.put("whenisnext", new NextArenaCommand());
 		commandMap.put("queue", new QueueCommand());
+		commandMap.put("loot", new LootCommand());
 	}
 
 	@Override
@@ -30,13 +30,13 @@ public class CommandManager implements CommandExecutor {
 	{
 		if (commandSender instanceof Player)
 		{
-			commandMap.get(strings[0]).execute(this, (Player) commandSender, Arrays.copyOfRange(strings, 1, strings.length - 1));
-			return true;
+			if (strings.length != 0)
+			{
+				commandMap.get(strings[0]).execute(this, (Player) commandSender, strings);
+				return true;
+			}
 		}
-		else
-		{
-			return false;
-		}
+		return false;
 	}
 
 	public Main getMain()

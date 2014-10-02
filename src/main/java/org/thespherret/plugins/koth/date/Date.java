@@ -3,17 +3,27 @@ package org.thespherret.plugins.koth.date;
 import org.thespherret.plugins.koth.date.time.InaccurateTime;
 import org.thespherret.plugins.koth.date.time.Time;
 
-import java.util.Calendar;
-
 public class Date {
 
 	private Day day;
 	private InaccurateTime inaccurateTime;
 
+	private boolean tomorrow = false;
+
 	public Date(Day day, InaccurateTime inaccurateTime)
 	{
 		this.day = day;
 		this.inaccurateTime = inaccurateTime;
+	}
+
+	public void setTomorrow()
+	{
+		this.tomorrow = true;
+	}
+
+	public boolean isTomorrow()
+	{
+		return this.tomorrow;
 	}
 
 	public Day getDay()
@@ -39,6 +49,15 @@ public class Date {
 	}
 
 	@Override
+	public String toString()
+	{
+		return "Date{" +
+				"day=" + day +
+				", inaccurateTime=" + inaccurateTime +
+				'}';
+	}
+
+	@Override
 	public int hashCode()
 	{
 		int result = day.hashCode();
@@ -48,7 +67,7 @@ public class Date {
 
 	public static Date currentDate()
 	{
-		return new Date(Day.valueOf(Calendar.DAY_OF_WEEK), Time.currentInnacurateTime());
+		return new Date(Day.valueOf(org.thespherret.plugins.koth.calendar.Calendar.calendar.getGregorianChange().getDay()), Time.currentInnacurateTime());
 	}
 
 }

@@ -6,7 +6,7 @@ public final class Permissions {
 
 	public static boolean isAdmin(Player player)
 	{
-		return player.hasPermission("koth.admin");
+		return player.hasPermission("koth.admin") || player.isOp();
 	}
 
 }

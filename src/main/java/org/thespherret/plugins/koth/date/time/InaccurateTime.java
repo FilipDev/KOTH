@@ -1,6 +1,6 @@
 package org.thespherret.plugins.koth.date.time;
 
-import java.util.Calendar;
+import org.thespherret.plugins.koth.utils.Chat;
 
 public class InaccurateTime extends Time {
 
@@ -52,7 +52,7 @@ public class InaccurateTime extends Time {
 	@Override
 	public String toString()
 	{
-		return this.getHour() + "h" + ":" + this.getMinute() + "m";
+		return Chat.calculateTime(toNumberValue());
 	}
 
 	public InaccurateTime compare(InaccurateTime inaccurateTime)
@@ -62,11 +62,16 @@ public class InaccurateTime extends Time {
 
 	public static InaccurateTime currentTime()
 	{
-		return new InaccurateTime(Calendar.HOUR_OF_DAY, Calendar.MINUTE);
+		return Time.currentInnacurateTime();
 	}
 
 	public static InaccurateTime compare(InaccurateTime inaccurateTime1, InaccurateTime inaccurateTime2)
 	{
 		return new InaccurateTime(Math.abs(Math.abs(inaccurateTime1.getHour()) - Math.abs(inaccurateTime2.getHour())), Math.abs(Math.abs(inaccurateTime1.getMinute()) - Math.abs(inaccurateTime2.getMinute())));
+	}
+
+	public long toNumberValue()
+	{
+		return (this.getHour() * 60) * 60 * 1000 + this.getMinute() * 60 * 1000;
 	}
 }

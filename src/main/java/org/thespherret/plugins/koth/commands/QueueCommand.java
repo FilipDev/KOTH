@@ -8,7 +8,6 @@ import java.util.HashMap;
 
 public class QueueCommand extends Command {
 
-
 	@Override
 	public void execute()
 	{

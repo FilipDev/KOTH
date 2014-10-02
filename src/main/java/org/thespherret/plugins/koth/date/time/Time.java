@@ -1,17 +1,20 @@
 package org.thespherret.plugins.koth.date.time;
 
+
 import java.util.Calendar;
+
+import static org.thespherret.plugins.koth.calendar.Calendar.*;
 
 public abstract class Time {
 
 	public static InaccurateTime currentInnacurateTime()
 	{
-		return new InaccurateTime(Calendar.HOUR_OF_DAY, Calendar.MINUTE);
+		return new InaccurateTime(calendar.getGregorianChange().getHours(), calendar.get(Calendar.MINUTE));
 	}
 
 	public static Time compareInaccurate(InaccurateTime inaccurateTime1, InaccurateTime inaccurateTime2)
 	{
-		return new InaccurateTime(Math.abs(Math.abs(inaccurateTime1.getHour()) - Math.abs(inaccurateTime2.getHour())), Math.abs(Math.abs(inaccurateTime1.getMinute()) - Math.abs(inaccurateTime2.getMinute())));
+		return new InaccurateTime(inaccurateTime1.getHour() - inaccurateTime2.getHour(), inaccurateTime1.getMinute() - inaccurateTime2.getMinute());
 	}
 
 	public static AccurateTime currentAccurateTime()
@@ -23,5 +26,4 @@ public abstract class Time {
 	{
 		return new AccurateTime(Math.abs(Math.abs(accurateTime1.getHour()) - Math.abs(accurateTime2.getHour())), Math.abs(Math.abs(accurateTime1.getMinute()) - Math.abs(accurateTime2.getMinute())), Math.abs(Math.abs(accurateTime1.getSecond()) - Math.abs(accurateTime2.getSecond())));
 	}
-
 }

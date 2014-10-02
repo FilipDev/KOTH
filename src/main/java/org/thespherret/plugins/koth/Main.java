@@ -47,6 +47,11 @@ public class Main extends JavaPlugin {
 		Main.pluginName = getDescription().getName();
 		Main.PREFIX = ChatColor.WHITE + "[" + ChatColor.DARK_GRAY + Main.pluginName + ChatColor.WHITE + "] ";
 
+		this.arenas = (this.arenas1 = new NewYAML(new File(getDataFolder(), "arenas.dat"))).newYaml();
+		this.kits = (this.kits1 = new NewYAML(new File(getDataFolder(), "kits.dat"))).newYaml();
+		this.playerData = (this.playerData1 = new NewYAML(new File(getDataFolder(), "players.dat"))).newYaml();
+		this.loot = (this.loot1 = new NewYAML(new File(getDataFolder(), "loot.dat"))).newYaml();
+
 		this.cm = new CommandManager(this);
 		this.am = new ArenaManager(this);
 		this.pm = new PlayerManager(this);
@@ -54,9 +59,9 @@ public class Main extends JavaPlugin {
 		this.qm = new QueueManager(this);
 		this.lm = new LootManager(this);
 
-		this.calendar = new Calendar(this);
+		this.am.initArenas();
 
-		this.rejoinReminder = new RejoinReminder(this);
+		this.calendar = new Calendar(this);
 
 		generateMessages();
 		this.saveDefaultConfig();
@@ -65,19 +70,16 @@ public class Main extends JavaPlugin {
 
 		for (String command : getDescription().getCommands().keySet())
 			getCommand(command).setExecutor(cm);
-
-		this.arenas = (this.arenas1 = new NewYAML(new File(getDataFolder(), "arenas.dat"))).newYaml();
-		this.kits = (this.kits1 = new NewYAML(new File(getDataFolder(), "kits.dat"))).newYaml();
-		this.playerData = (this.playerData1 = new NewYAML(new File(getDataFolder(), "players.dat"))).newYaml();
-		this.loot = (this.loot1 = new NewYAML(new File(getDataFolder(), "loot.dat"))).newYaml();
-		this.am.initArenas();
 	}
 
 	public void onDisable()
 	{
-		if (this.am.getCurrentArena().hasStarted())
-			this.am.getCurrentArena().endArena();
+		if (this.am.getCurrentArena() != null)
+			if (this.am.getCurrentArena().hasStarted())
+				this.am.getCurrentArena().endArena();
 		this.saveConfig();
+
+		lm.saveRewards();
 	}
 
 	private void generateMessages()
@@ -91,7 +93,11 @@ public class Main extends JavaPlugin {
 			String line;
 			try {
 				while ((line = input.readLine()) != null)
+				{
+					System.out.println(line);
+					System.out.println(line.split(": ").length);
 					messages.set(line.split(": ")[0], line.split(": ")[1]);
+				}
 				messages.save(messages1.getFile());
 				input.close();
 			} catch (IOException e) {
@@ -126,4 +132,13 @@ public class Main extends JavaPlugin {
 		return lm;
 	}
 
+	public QueueManager getQM()
+	{
+		return qm;
+	}
+
+	public Calendar getCalendar()
+	{
+		return this.calendar;
+	}
 }
