@@ -1,7 +1,8 @@
 package org.thespherret.plugins.koth.commands;
 
-import org.thespherret.plugins.koth.arena.Arena;
+import org.thespherret.plugins.koth.messages.Error;
 import org.thespherret.plugins.koth.messages.Message;
+import org.thespherret.plugins.koth.messages.Warning;
 import org.thespherret.plugins.koth.utils.Chat;
 
 public class SetSpawnCommand extends Command {
@@ -9,14 +10,19 @@ public class SetSpawnCommand extends Command {
 	@Override
 	public void execute()
 	{
-		if (args.length > 0)
+		System.out.println("executed " + this.subCommand);
+		if (args.length == 1)
 		{
-			Arena targetArena;
-			if ((targetArena = cm.getMain().getAM().getArena(args[0])) != null)
+			if (cm.getMain().getAM().getArena(args[0]) == null)
 			{
-				targetArena.setSpawn(p.getLocation());
-				Chat.sendFormattedMessage(p, Message.CHANGED_SPAWN_POINT, targetArena.getArenaName());
+				Chat.sendWarning(p, Warning.CREATED_ARENA);
 			}
+			cm.getMain().getAM().setArenaSpawn(args[0], p.getLocation());
+			Chat.sendMessage(p, Message.CHANGED_SPAWN_POINT, args[0]);
+		}
+		else
+		{
+			Chat.sendError(p, Error.TOO_MANY_ARGS);
 		}
 	}
 }

@@ -19,7 +19,7 @@ public class Updater {
 					if (updateType.elapsed())
 						Bukkit.getPluginManager().callEvent(new UpdateEvent(updateType));
 			}
-		}, 20L, 20L);
+		}, 1L, 1L);
 	}
 
 }

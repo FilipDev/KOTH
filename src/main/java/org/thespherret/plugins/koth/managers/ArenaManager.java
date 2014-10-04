@@ -6,8 +6,8 @@ import org.bukkit.World;
 import org.bukkit.configuration.ConfigurationSection;
 import org.bukkit.entity.Player;
 import org.bukkit.event.player.PlayerTeleportEvent;
-import org.thespherret.plugins.koth.arena.Arena;
 import org.thespherret.plugins.koth.Main;
+import org.thespherret.plugins.koth.arena.Arena;
 
 import java.io.IOException;
 import java.util.HashMap;
@@ -49,18 +49,21 @@ public class ArenaManager {
 
 	public void initArenas()
 	{
-		try{
+		this.arenas.clear();
+		try {
 			for (String arenaString : main.arenas.getConfigurationSection("arenas").getKeys(false))
 			{
 				Bukkit.getConsoleSender().sendMessage("Initializing arena " + arenaString + ".");
 				this.addArena(new Arena(this, arenaString));
 			}
-		}catch (NullPointerException ignored){}
+		} catch (NullPointerException ignored){
+			ignored.printStackTrace();
+		}
 	}
 
 	public World getWorld(String arenaName)
 	{
-		return Bukkit.getWorld(main.arenas.getString("arenas." + arenaName + ".1.world"));
+		return Bukkit.getWorld(main.arenas.getString("arenas." + arenaName + ".world"));
 	}
 
 	public Location getSpawnPoint(String arenaName)
@@ -70,19 +73,14 @@ public class ArenaManager {
 
 	public void setArenaSpawn(String arenaName, Location location)
 	{
+		System.out.println("tessstttt");
 		main.arenas.set("arenas." + arenaName + ".world", location.getWorld().getName());
 		main.arenas.set("arenas." + arenaName + ".x", location.getX());
 		main.arenas.set("arenas." + arenaName + ".y", location.getY());
 		main.arenas.set("arenas." + arenaName + ".z", location.getZ());
 		main.arenas.set("arenas." + arenaName + ".yaw", location.getYaw());
 		main.arenas.set("arenas." + arenaName + ".pitch", location.getPitch());
-		try {
-			if (!main.arenas1.getFile().exists())
-				if (main.arenas1.getFile().createNewFile())
-					main.arenas.save(main.arenas1.getFile());
-		} catch (IOException e) {
-			e.printStackTrace();
-		}
+		saveArenas();
 		initArenas();
 	}
 
@@ -97,6 +95,7 @@ public class ArenaManager {
 	public void createArena(String arenaName)
 	{
 		main.arenas.set("arenas." + arenaName, "");
+		saveArenas();
 	}
 
 	public Main getMain()
@@ -124,4 +123,14 @@ public class ArenaManager {
 		return this.arenas;
 	}
 
+	public void saveArenas()
+	{
+		try
+		{
+			main.arenas.save(main.arenas1.getFile());
+		} catch (IOException e)
+		{
+			e.printStackTrace();
+		}
+	}
 }

@@ -23,6 +23,7 @@ public class CommandManager implements CommandExecutor {
 		commandMap.put("whenisnext", new NextArenaCommand());
 		commandMap.put("queue", new QueueCommand());
 		commandMap.put("loot", new LootCommand());
+		commandMap.put("setspawn", new SetSpawnCommand());
 	}
 
 	@Override

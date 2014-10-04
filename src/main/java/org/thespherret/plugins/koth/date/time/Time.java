@@ -3,23 +3,19 @@ package org.thespherret.plugins.koth.date.time;
 
 import java.util.Calendar;
 
-import static org.thespherret.plugins.koth.calendar.Calendar.*;
-
 public abstract class Time {
 
 	public static InaccurateTime currentInnacurateTime()
 	{
-		return new InaccurateTime(calendar.getGregorianChange().getHours(), calendar.get(Calendar.MINUTE));
+		return new InaccurateTime(Calendar.getInstance().get(Calendar.HOUR_OF_DAY), Calendar.getInstance().get(Calendar.MINUTE));
 	}
 
 	public static Time compareInaccurate(InaccurateTime inaccurateTime1, InaccurateTime inaccurateTime2)
 	{
-		return new InaccurateTime(inaccurateTime1.getHour() - inaccurateTime2.getHour(), inaccurateTime1.getMinute() - inaccurateTime2.getMinute());
-	}
-
-	public static AccurateTime currentAccurateTime()
-	{
-		return new AccurateTime(Calendar.HOUR_OF_DAY, Calendar.MINUTE, Calendar.SECOND);
+		InaccurateTime comparedTime = new InaccurateTime(inaccurateTime1.getHour() - inaccurateTime2.getHour(), inaccurateTime1.getMinute() - inaccurateTime2.getMinute());
+		if (comparedTime.toNumberValue() < 0)
+			return null;
+		return comparedTime;
 	}
 
 	public static Time compareAccurate(AccurateTime accurateTime1, AccurateTime accurateTime2)

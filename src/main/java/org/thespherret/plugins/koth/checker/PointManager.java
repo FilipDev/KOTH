@@ -1,7 +1,9 @@
 package org.thespherret.plugins.koth.checker;
 
+import org.bukkit.Bukkit;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
+import org.bukkit.event.Listener;
 import org.bukkit.event.player.PlayerMoveEvent;
 import org.thespherret.plugins.koth.arena.Arena;
 import org.thespherret.plugins.koth.Main;
@@ -14,7 +16,7 @@ import java.util.HashMap;
 import java.util.PriorityQueue;
 import java.util.Queue;
 
-public class PointManager {
+public class PointManager implements Listener {
 
 	private Main main;
 
@@ -27,6 +29,8 @@ public class PointManager {
 	public PointManager(Main main)
 	{
 		this.main = main;
+
+		Bukkit.getPluginManager().registerEvents(this, main);
 
 		this.arena = main.getAM().getCurrentArena();
 	}

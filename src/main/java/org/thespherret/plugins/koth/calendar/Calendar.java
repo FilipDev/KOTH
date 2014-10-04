@@ -1,33 +1,30 @@
 package org.thespherret.plugins.koth.calendar;
 
+import org.bukkit.Bukkit;
 import org.bukkit.event.EventHandler;
+import org.bukkit.event.Listener;
 import org.thespherret.plugins.koth.Main;
 import org.thespherret.plugins.koth.arena.Arena;
 import org.thespherret.plugins.koth.date.Date;
 import org.thespherret.plugins.koth.updater.UpdateEvent;
 import org.thespherret.plugins.koth.updater.UpdateType;
 
-import java.text.DateFormat;
-import java.text.SimpleDateFormat;
-import java.util.GregorianCalendar;
-import java.util.SimpleTimeZone;
-
-public class Calendar {
+public class Calendar implements Listener {
 
 	private Main main;
-
-	public static GregorianCalendar calendar = new GregorianCalendar(new SimpleTimeZone(-5, "EST"));
 
 	public Calendar(Main main)
 	{
 		this.main = main;
 
-		java.util.Date date = new java.util.Date();
-		DateFormat dateFormat = new SimpleDateFormat("yyyy/mm/dd");
+		Bukkit.getPluginManager().registerEvents(this, main);
 
-		String[] dateStrings = dateFormat.format(date).split("/");
+		//java.util.Date date = new java.util.Date();
+		//DateFormat dateFormat = new SimpleDateFormat("yyyy/mm/dd");
 
-		calendar.set(Integer.parseInt(dateStrings[0]), Integer.parseInt(dateStrings[1]), Integer.parseInt(dateStrings[2]));
+		//String[] dateStrings = dateFormat.format(date).split("/");
+
+		//calendar.set(Integer.parseInt(dateStrings[0]), Integer.parseInt(dateStrings[1]), Integer.parseInt(dateStrings[2]));
 	}
 
 	@EventHandler

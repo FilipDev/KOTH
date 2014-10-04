@@ -7,7 +7,7 @@ public class UpdateEvent extends Event {
 
 	private UpdateType updateType;
 
-	private static final HandlerList handlerList = new HandlerList();
+	private static final HandlerList handlers = new HandlerList();
 
 	public UpdateEvent(UpdateType updateType)
 	{
@@ -19,9 +19,12 @@ public class UpdateEvent extends Event {
 		return updateType;
 	}
 
-	@Override
-	public HandlerList getHandlers()
-	{
-		return handlerList;
+	public HandlerList getHandlers() {
+		return handlers;
 	}
+
+	public static HandlerList getHandlerList() {
+		return handlers;
+	}
+
 }

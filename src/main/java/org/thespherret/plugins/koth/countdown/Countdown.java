@@ -58,7 +58,7 @@ public class Countdown implements Listener {
 			{
 				for (Player player : arena.getPlayers())
 				{
-					Chat.sendFormattedMessage(player, Message.GAME_STARTING_IN, time.toString());
+					Chat.sendMessage(player, Message.GAME_STARTING_IN, time.toString());
 				}
 			}
 		}

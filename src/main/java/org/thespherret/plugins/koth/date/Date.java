@@ -3,6 +3,8 @@ package org.thespherret.plugins.koth.date;
 import org.thespherret.plugins.koth.date.time.InaccurateTime;
 import org.thespherret.plugins.koth.date.time.Time;
 
+import java.util.Calendar;
+
 public class Date {
 
 	private Day day;
@@ -67,7 +69,7 @@ public class Date {
 
 	public static Date currentDate()
 	{
-		return new Date(Day.valueOf(org.thespherret.plugins.koth.calendar.Calendar.calendar.getGregorianChange().getDay()), Time.currentInnacurateTime());
+		return new Date(Day.valueOf(Calendar.getInstance().get(Calendar.DAY_OF_WEEK)), Time.currentInnacurateTime());
 	}
 
 }

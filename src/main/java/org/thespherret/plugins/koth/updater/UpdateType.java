@@ -9,7 +9,7 @@ public enum UpdateType {
 
 	UpdateType(long ticks)
 	{
-		this.ticks = ticks;
+		this.ticks = ticks * 49L;
 		this.lastTime = System.currentTimeMillis();
 	}
 

@@ -87,6 +87,7 @@ public class Arena implements Listener {
 
 	public void setSpawn(Location newSpawn)
 	{
+		System.out.println("test");
 		am.setArenaSpawn(this.getArenaName(), newSpawn);
 	}
 

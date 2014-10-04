@@ -2,7 +2,6 @@ package org.thespherret.plugins.koth.managers;
 
 import org.bukkit.Bukkit;
 import org.thespherret.plugins.koth.Main;
-import org.thespherret.plugins.koth.calendar.Calendar;
 import org.thespherret.plugins.koth.date.Date;
 import org.thespherret.plugins.koth.date.Day;
 import org.thespherret.plugins.koth.date.time.InaccurateTime;
@@ -25,6 +24,9 @@ public class DateManager {
 		addDate(new Date(Day.MONDAY, new InaccurateTime(8, 10)), "test");
 		addDate(new Date(Day.TUESDAY, new InaccurateTime(10, 0)), "test");
 		addDate(new Date(Day.THURSDAY, new InaccurateTime(1, 40)), "test");
+		addDate(new Date(Day.SATURDAY, new InaccurateTime(11, 35)), "test");
+		addDate(new Date(Day.SATURDAY, new InaccurateTime(14, 33)), "test");
+		addDate(new Date(Day.SATURDAY, new InaccurateTime(14, 38)), "test");
 
 		if (main.getAM().getArenaMap().size() == 0)
 			Chat.sendError(Bukkit.getConsoleSender(), Error.NO_ARENAS, "");
@@ -56,7 +58,7 @@ public class DateManager {
 
 		for (Date date : arenaMap.keySet())
 		{
-			if (date.getDay() == Day.valueOf(Calendar.calendar.getGregorianChange().getDay()))
+			if (date.getDay() == Day.valueOf(java.util.Calendar.getInstance().get(java.util.Calendar.DAY_OF_WEEK)))
 			{
 				if (date.getInaccurateTime().toNumberValue() - newMax < 0)
 				{

@@ -8,7 +8,7 @@ import org.thespherret.plugins.koth.calendar.Calendar;
 import org.thespherret.plugins.koth.drops.LootManager;
 import org.thespherret.plugins.koth.managers.*;
 import org.thespherret.plugins.koth.messages.Message;
-import org.thespherret.plugins.koth.queue.RejoinReminder;
+import org.thespherret.plugins.koth.updater.Updater;
 import org.thespherret.plugins.koth.utils.Chat;
 import org.thespherret.plugins.koth.utils.NewYAML;
 
@@ -29,7 +29,7 @@ public class Main extends JavaPlugin {
 	QueueManager qm;
 	LootManager lm;
 
-	RejoinReminder rejoinReminder;
+	Updater updater;
 
 	Calendar calendar;
 
@@ -61,6 +61,7 @@ public class Main extends JavaPlugin {
 
 		this.am.initArenas();
 
+		this.updater = new Updater(this);
 		this.calendar = new Calendar(this);
 
 		generateMessages();

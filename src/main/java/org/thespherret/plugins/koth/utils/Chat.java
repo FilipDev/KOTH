@@ -2,8 +2,12 @@ package org.thespherret.plugins.koth.utils;
 
 import org.bukkit.ChatColor;
 import org.bukkit.command.CommandSender;
+import org.thespherret.plugins.koth.Main;
+import org.thespherret.plugins.koth.date.Date;
+import org.thespherret.plugins.koth.date.time.Time;
 import org.thespherret.plugins.koth.messages.Error;
 import org.thespherret.plugins.koth.messages.Message;
+import org.thespherret.plugins.koth.messages.Warning;
 
 import java.util.concurrent.TimeUnit;
 
@@ -25,15 +29,10 @@ public class Chat {
 		millis -= TimeUnit.MINUTES.toMillis(minutes);
 		long seconds = TimeUnit.MILLISECONDS.toSeconds(millis);
 
-		return (hours == 0 ? "" : hours + " hours ") + (minutes == 0 ? "" : minutes + " minutes ") + seconds + " seconds";
+		return (hours == 0 ? "" : hours + " hours ") + (minutes == 0 ? "" : minutes + " minutes ");
 	}
 
-	public static void sendMessage(CommandSender sender, Message message)
-	{
-		sender.sendMessage(message.toString());
-	}
-
-	public static void sendFormattedMessage(CommandSender sender, Message message, String... strings)
+	public static void sendMessage(CommandSender sender, Message message, String... strings)
 	{
 		sender.sendMessage(message.getFormatted(strings));
 	}
@@ -43,9 +42,27 @@ public class Chat {
 		sender.sendMessage(error.getFormatted(strings));
 	}
 
+	public static void sendWarning(CommandSender sender, Warning warning, String... strings)
+	{
+		sender.sendMessage(warning.getFormatted(strings));
+	}
+
 	public static String colorize(String s)
 	{
 		return ChatColor.translateAlternateColorCodes('&', s);
+	}
+
+	public static void sendRemainingTime(CommandSender sender, Main main)
+	{
+		Date date = main.getDM().getNextArena();
+		String time = "";
+		if (!date.isTomorrow())
+		{
+			Time comparedTime = Time.compareInaccurate(date.getInaccurateTime(), Time.currentInnacurateTime());
+			if (comparedTime != null)
+				time = comparedTime.toString();
+		}
+		Chat.sendMessage(sender, date.isTomorrow() || (time.equals("")) ? Message.GAME_STARTING_TOMORROW : Message.GAME_STARTING_IN, time);
 	}
 
 }

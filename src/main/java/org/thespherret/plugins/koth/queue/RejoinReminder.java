@@ -7,7 +7,6 @@ import org.bukkit.event.Listener;
 import org.bukkit.event.player.PlayerJoinEvent;
 import org.bukkit.event.player.PlayerQuitEvent;
 import org.thespherret.plugins.koth.Main;
-import org.thespherret.plugins.koth.date.time.Time;
 import org.thespherret.plugins.koth.messages.Message;
 import org.thespherret.plugins.koth.utils.Chat;
 
@@ -48,7 +47,6 @@ public class RejoinReminder implements Listener {
 		if (leftQueue.contains(e.getPlayer().getName()))
 			Chat.sendMessage(e.getPlayer(), Message.RETURN_TO_QUEUE);
 
-		Chat.sendFormattedMessage(e.getPlayer(), Message.GAME_STARTING_IN, Time.compareInaccurate(Time.currentInnacurateTime(), main.getDM().getNextArena().getInaccurateTime()).toString());
-
+		Chat.sendRemainingTime(e.getPlayer(), main);
 	}
 }
