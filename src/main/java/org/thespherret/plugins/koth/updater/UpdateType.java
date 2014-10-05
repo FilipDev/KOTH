@@ -9,7 +9,7 @@ public enum UpdateType {
 
 	UpdateType(long ticks)
 	{
-		this.ticks = ticks * 49L;
+		this.ticks = ticks * 50L;
 		this.lastTime = System.currentTimeMillis();
 	}
 
@@ -19,6 +19,7 @@ public enum UpdateType {
 	}
 
 	protected boolean elapsed()
+
 	{
 		if (elapsed(this.lastTime, this.ticks))
 		{
@@ -30,6 +31,6 @@ public enum UpdateType {
 
 	public static boolean elapsed(long time, long required)
 	{
-		return System.currentTimeMillis() - time > required;
+		return System.currentTimeMillis() - time >= required;
 	}
 }

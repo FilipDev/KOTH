@@ -8,6 +8,7 @@ public class JoinCommand extends Command {
 	@Override
 	public void execute()
 	{
+		cm.getMain().getQM().getQueue().add(p);
 		Chat.sendMessage(p, Message.JOINED_QUEUE);
 	}
 }

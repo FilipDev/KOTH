@@ -4,7 +4,7 @@ import org.bukkit.ChatColor;
 
 public enum Warning {
 
-	CREATED_ARENA("Arena does not exist, created one.");
+	CREATED_ARENA("Arena does not exist, created one."), LEFT_QUEUE("Left server while in queue. Rejoin with /koth join.");
 
 	private String warning;
 

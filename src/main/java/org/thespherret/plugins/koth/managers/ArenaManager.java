@@ -73,7 +73,6 @@ public class ArenaManager {
 
 	public void setArenaSpawn(String arenaName, Location location)
 	{
-		System.out.println("tessstttt");
 		main.arenas.set("arenas." + arenaName + ".world", location.getWorld().getName());
 		main.arenas.set("arenas." + arenaName + ".x", location.getX());
 		main.arenas.set("arenas." + arenaName + ".y", location.getY());

@@ -18,13 +18,6 @@ public class Calendar implements Listener {
 		this.main = main;
 
 		Bukkit.getPluginManager().registerEvents(this, main);
-
-		//java.util.Date date = new java.util.Date();
-		//DateFormat dateFormat = new SimpleDateFormat("yyyy/mm/dd");
-
-		//String[] dateStrings = dateFormat.format(date).split("/");
-
-		//calendar.set(Integer.parseInt(dateStrings[0]), Integer.parseInt(dateStrings[1]), Integer.parseInt(dateStrings[2]));
 	}
 
 	@EventHandler

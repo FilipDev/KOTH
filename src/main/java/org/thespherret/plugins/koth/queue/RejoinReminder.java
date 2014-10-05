@@ -7,7 +7,7 @@ import org.bukkit.event.Listener;
 import org.bukkit.event.player.PlayerJoinEvent;
 import org.bukkit.event.player.PlayerQuitEvent;
 import org.thespherret.plugins.koth.Main;
-import org.thespherret.plugins.koth.messages.Message;
+import org.thespherret.plugins.koth.messages.Warning;
 import org.thespherret.plugins.koth.utils.Chat;
 
 import java.util.HashSet;
@@ -19,6 +19,8 @@ public class RejoinReminder implements Listener {
 	public RejoinReminder(Main main)
 	{
 		this.main = main;
+
+		Bukkit.getPluginManager().registerEvents(this, main);
 	}
 
 	private final HashSet<String> leftQueue = new HashSet<>();
@@ -45,7 +47,7 @@ public class RejoinReminder implements Listener {
 	public void onPlayerJoin(PlayerJoinEvent e)
 	{
 		if (leftQueue.contains(e.getPlayer().getName()))
-			Chat.sendMessage(e.getPlayer(), Message.RETURN_TO_QUEUE);
+			Chat.sendWarning(e.getPlayer(), Warning.LEFT_QUEUE);
 
 		Chat.sendRemainingTime(e.getPlayer(), main);
 	}
