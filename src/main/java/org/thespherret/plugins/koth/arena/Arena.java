@@ -112,6 +112,7 @@ public class Arena implements Listener {
 		this.invulnerable = true;
 		addPlayers();
 
+		this.cuboid = new Cuboid(getCapturePoint(1), getCapturePoint(2));
 		this.checker = new PointManager(main);
 	}
 
@@ -147,4 +148,9 @@ public class Arena implements Listener {
 					e.setCancelled(true);
 	}
 
+	public Location getCapturePoint(int point)
+	{
+		ConfigurationSection capPointSection = this.configurationSection.getConfigurationSection("capturepoint." + point);
+		return new Location(spawnPoint.getWorld(), capPointSection.getDouble("x"), capPointSection.getDouble("y"), capPointSection.getDouble("z"));
+	}
 }

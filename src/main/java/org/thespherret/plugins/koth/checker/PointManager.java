@@ -57,25 +57,33 @@ public class PointManager implements Listener {
 					isInHill = true;
 			}
 
-			addPoints(enterQueue.peek());
+			if (!enterQueue.isEmpty())
+			{
+				addPoints(enterQueue.peek());
+				enterQueue.peek().sendRawMessage("test");
+			}
 		}
 	}
 
 	@EventHandler
 	public void onPlayerMove(PlayerMoveEvent e)
 	{
-		if (!enterQueue.contains(e.getPlayer()))
+		if (arena.getPlayers().contains(e.getPlayer()))
 		{
-			if (arena.getCuboid().contains(e.getTo()))
+			if (!enterQueue.contains(e.getPlayer()))
 			{
-				enterQueue.add(e.getPlayer());
-				resetPoints(e.getPlayer());
+				if (arena.getCuboid().contains(e.getTo()))
+				{
+					enterQueue.add(e.getPlayer());
+					resetPoints(e.getPlayer());
+				}
 			}
 		}
 	}
 
 	private void addPoints(Player player)
 	{
+		player.sendMessage("You have gotten a point");
 		inCubeTime.put(player.getName(), inCubeTime.get(player.getName()) + 1);
 	}
 

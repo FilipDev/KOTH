@@ -19,7 +19,6 @@ public enum UpdateType {
 	}
 
 	protected boolean elapsed()
-
 	{
 		if (elapsed(this.lastTime, this.ticks))
 		{

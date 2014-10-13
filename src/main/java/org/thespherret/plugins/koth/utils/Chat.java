@@ -11,7 +11,10 @@ import org.thespherret.plugins.koth.messages.Warning;
 
 import java.util.concurrent.TimeUnit;
 
-public class Chat {
+public final class Chat {
+
+	private Chat()
+	{}
 
 	public static String getFormatted(String s, Object... strings)
 	{
@@ -59,10 +62,15 @@ public class Chat {
 		if (!date.isTomorrow())
 		{
 			Time comparedTime = Time.compareInaccurate(date.getInaccurateTime(), Time.currentInnacurateTime());
+			System.out.println(comparedTime);
 			if (comparedTime != null)
 				time = comparedTime.toString();
 		}
-		Chat.sendMessage(sender, date.isTomorrow() || (time.equals("")) ? Message.GAME_STARTING_TOMORROW : Message.GAME_STARTING_IN, time);
+		else
+		{
+			time = "tomorrow";
+		}
+		Chat.sendMessage(sender, date.isTomorrow() ? Message.GAME_STARTING_TOMORROW : Message.GAME_STARTING_IN, time);
 	}
 
 }

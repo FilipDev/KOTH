@@ -89,6 +89,7 @@ public class ArenaManager {
 		section.set("capturepoint." + arenaCapturePoint + ".x", location.getBlockX());
 		section.set("capturepoint." + arenaCapturePoint + ".y", location.getBlockY());
 		section.set("capturepoint." + arenaCapturePoint + ".z", location.getBlockZ());
+		saveArenas();
 	}
 
 	public void createArena(String arenaName)
